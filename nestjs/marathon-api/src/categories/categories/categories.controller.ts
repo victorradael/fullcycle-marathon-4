@@ -3,7 +3,7 @@ import { Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { Category } from '../category.entity';
 import { CategoriesService } from '../categories/categories.service';
 
-@Controller('categories')
+@Controller()
 export class CategoriesController {
   constructor(private categoriesService: CategoriesService) {}
   @Get()
@@ -11,7 +11,7 @@ export class CategoriesController {
     return this.categoriesService.findAll();
   }
 
-  @Post('create')
+  @Post()
   async create(@Body() categoryData: Category): Promise<any> {
     return this.categoriesService.create(categoryData);
   }
