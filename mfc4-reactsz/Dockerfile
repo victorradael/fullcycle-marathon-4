@@ -1,12 +1,14 @@
+FROM node:13.12.0-alpine
 
-FROM node:12.14.0-alpine3.11
+WORKDIR /app
 
-RUN apk add --no-cache bash
+ENV PATH /app/node_modules/.bin:$PATH
+ENV CI=true
 
-RUN touch /home/node/.bashrc | echo "PS1='\w\$ '" >> /home/node/.bashrc
+COPY . .
+RUN npm install --silent
+RUN npm install react-scripts@3.4.0 -g --silent
 
-RUN npm config set cache /home/node/app/.npm-cache --global
+EXPOSE 3000
 
-USER node
-
-WORKDIR /home/node/app
+CMD ["npm", "run", "start"]
